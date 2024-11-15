@@ -1,0 +1,25 @@
+@startuml
+actor "Admin Sistem" as Admin
+actor "Pengambil Kebijakan" as Kebijakan
+actor "Tim IT" as IT
+
+rectangle "Sistem Analisis Data Guru" {
+  usecase "Integrasi Data Guru" as UC1
+  usecase "Visualisasi Distribusi Guru" as UC2
+  usecase "Analisis Kompetensi Guru" as UC3
+  usecase "Evaluasi Kesejahteraan Guru" as UC4
+  usecase "Prediksi Kebutuhan Guru" as UC5
+  usecase "Pembuatan Rekomendasi" as UC6
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+
+Kebijakan --> UC2
+Kebijakan --> UC5
+Kebijakan --> UC6
+
+IT --> UC1
+@enduml

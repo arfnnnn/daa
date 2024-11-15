@@ -1,0 +1,19 @@
+@startuml
+start
+:Kumpulkan data guru;
+if (Data lengkap?) then (Yes)
+  :Proses integrasi data;
+  :Analisis distribusi guru;
+  :Analisis kompetensi guru;
+  :Evaluasi kesejahteraan guru;
+  if (Identifikasi masalah?) then (Yes)
+    :Buat rekomendasi kebijakan;
+  else (No)
+    :Proses selesai;
+  endif
+else (No)
+  :Lakukan validasi data;
+  :Kembalikan ke tahap awal;
+endif
+stop
+@enduml

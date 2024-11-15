@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Classroom;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,13 +13,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Call individual seeders
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-        ]);
-
-        $user->assignRole('super_admin');
+        // Seed users
+        $this->seedUsers();
+        $this->callSeeders();
     }
-}
+
+    private function seedUsers(): void
+    {
+        if (!User::where('email', 'admin@admin.com')->exists()) {
+            $users = User::factory()->createmany([
+                [
+                    'name' => 'Admin',
+                    'email' => 'admin@admin.com',
+                    'password' => bcrypt('password'),
+                ],
+                [
+                    'name' => 'Mahasiswa',
+                    'email' => 'mhs@admin.com',
+                    'password' => bcrypt('password'),
+                ],
+                [
+                    'name' => 'Dosen',
+                    'email' => 'dsn@admin.com',
+                    'password' => bcrypt('password'),
+                ],
+            ]);
+
+            foreach ($users as $user) {
+                if ($user->email == 'admin@admin.com') {
+                    $user->assignRole('super_admin');
+                    }
+                }
+            }
+        }
+
+            private function callSeeders(): void {
+                $this->call([
+                    RoleSeeder::class,
+                    ClassroomSeeder::class,
+                ]);
+
+            }
+        }
